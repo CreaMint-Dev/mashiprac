@@ -1,1 +1,3 @@
 # mashiprac
+
+これはMinemenClubのようなPracticeプラグインです。
