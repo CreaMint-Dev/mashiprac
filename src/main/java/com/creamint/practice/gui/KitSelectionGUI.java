@@ -1,5 +1,6 @@
 package com.creamint.practice.gui;
 
+import com.creamint.practice.PracticePvP;
 import com.creamint.practice.kit.KitManager;
 import com.creamint.practice.queue.QueueManager;
 import org.bukkit.Bukkit;
@@ -15,10 +16,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class KitSelectionGUI implements Listener {
     private final KitManager kitManager;
     private final QueueManager queueManager;
+    private final PracticePvP plugin;
 
-    public KitSelectionGUI(KitManager kitManager, QueueManager queueManager) {
+    public KitSelectionGUI(KitManager kitManager, QueueManager queueManager, PracticePvP plugin) {
         this.kitManager = kitManager;
         this.queueManager = queueManager;
+        this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

@@ -22,7 +22,7 @@ public class PracticePvP extends JavaPlugin {
         queueManager = new QueueManager();
         matchManager = new MatchManager(this);
         kitManager = new KitManager(this.getDataFolder());
-        kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager);
+        kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager, this);
         arenaManager = new ArenaManager(this);
 
         // コマンドの登録
