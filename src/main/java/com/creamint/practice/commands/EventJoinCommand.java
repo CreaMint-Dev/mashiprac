@@ -17,8 +17,8 @@ public class EventJoinCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            // Implement event join logic here
-            player.sendMessage("You have joined the event.");
+            // イベントに参加するロジック
+            player.sendMessage("Event join command executed.");
             return true;
         }
         return false;

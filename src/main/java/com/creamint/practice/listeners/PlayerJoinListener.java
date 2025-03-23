@@ -4,6 +4,7 @@ import com.creamint.practice.PracticePvP;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.Location;
 
 public class PlayerJoinListener implements Listener {
     private final PracticePvP plugin;
@@ -14,6 +15,8 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.getPlayer().sendMessage("Welcome to the PracticePvP server!");
+        Location spawnLocation = (Location) plugin.getConfig().get("spawn");
+        event.getPlayer().teleport(spawnLocation);
+        // スポーンアイテムを渡すロジック
     }
 }

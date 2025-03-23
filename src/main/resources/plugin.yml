@@ -5,6 +5,8 @@ api-version: 1.16
 commands:
   mashiprac:
     description: Main command for PracticePvP
+  mashiprac setspawn:
+    description: Set the lobby spawn location
   event:
     description: Command to select and join events
   duel:
@@ -29,3 +31,41 @@ commands:
     description: Command to leave the current party
   party disband:
     description: Command to disband the current party
+  kit create:
+    description: Command to create a kit
+  kit delete:
+    description: Command to delete a kit
+  kit setinv:
+    description: Command to set the default inventory of a kit
+  kit loadinv:
+    description: Command to load the inventory of a kit
+  kit seticon:
+    description: Command to set the icon of a kit
+  kit settings:
+    description: Command to set the rules of a kit
+  kit list:
+    description: Command to list all kits
+  arena create:
+    description: Command to create an arena
+  arena delete:
+    description: Command to delete an arena
+  arena teleport:
+    description: Command to teleport to an arena
+  arena kits:
+    description: Command to set the kits available in an arena
+  arena clearkits:
+    description: Command to clear the kits available in an arena
+  arena resetaftermatch:
+    description: Command to reset an arena after a match
+  arena pos1:
+    description: Command to set the spawn position 1 of an arena
+  arena pos2:
+    description: Command to set the spawn position 2 of an arena
+  arena c1:
+    description: Command to set the first corner of an arena
+  arena c2:
+    description: Command to set the second corner of an arena
+  arena list:
+    description: Command to list all arenas
+  arena seticon:
+    description: Command to set the icon of an arena

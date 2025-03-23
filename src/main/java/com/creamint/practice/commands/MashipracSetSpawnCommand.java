@@ -1,15 +1,16 @@
 package com.creamint.practice.commands;
 
 import com.creamint.practice.PracticePvP;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StatsCommand implements CommandExecutor {
+public class MashipracSetSpawnCommand implements CommandExecutor {
     private final PracticePvP plugin;
 
-    public StatsCommand(PracticePvP plugin) {
+    public MashipracSetSpawnCommand(PracticePvP plugin) {
         this.plugin = plugin;
     }
 
@@ -17,8 +18,10 @@ public class StatsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            // Stats表示ロジック
-            player.sendMessage("Stats command executed.");
+            Location location = player.getLocation();
+            plugin.getConfig().set("spawn", location);
+            plugin.saveConfig();
+            player.sendMessage("Lobby spawn location has been set!");
             return true;
         }
         return false;

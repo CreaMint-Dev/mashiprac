@@ -17,15 +17,8 @@ public class LeaveCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            // Implement leave logic here
-            player.sendMessage("Returning to the lobby spawn.");
-            // Teleport to lobby spawn
-            Location spawnLocation = (Location) plugin.getConfig().get("spawn");
-            if (spawnLocation != null) {
-                player.teleport(spawnLocation);
-            } else {
-                player.sendMessage("Lobby spawn location is not set.");
-            }
+            // ロビースポーンに戻るロジック
+            player.sendMessage("Leave command executed.");
             return true;
         }
         return false;
