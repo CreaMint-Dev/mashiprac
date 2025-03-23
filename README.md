@@ -93,3 +93,8 @@ Queueシステムの解説：
 パーティーから抜ける（パーティーリーダーの場合はDisband）
 マッチ中の場合は死亡判定にし、マッチから離脱
 etc...　エラーハンドリングをしっかりする
+
+情報保存場所：
+kits.yml kit情報の保存場所
+arenas.yml arena情報の保存場所
+kiteditor プレイヤーのkiteditor情報の保存はSQLiteまたはmysqlでやる。この２つはconfig.yml選択可能にする。
