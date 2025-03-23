@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;  // ここを追加
+import java.util.List;
 import java.util.Map;
 
 public class ArenaManager {
@@ -37,6 +37,10 @@ public class ArenaManager {
 
     public Arena getArena(String name) {
         return arenas.get(name);
+    }
+
+    public Map<String, Arena> getArenas() {
+        return arenas;
     }
 
     public void setArenaPosition(String name, Location pos1, Location pos2) {
