@@ -1,6 +1,6 @@
 package com.creamint.practice.listeners;
 
-import com.creamint.practice.PracticePvP;
+import com.creamint.practice.gui.KitSelectionGUI;
 import com.creamint.practice.queue.QueueManager;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -11,12 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class PlayerInteractListener implements Listener {
-    private final PracticePvP plugin;
-    private final QueueManager queueManager;
+    private final KitSelectionGUI kitSelectionGUI;
 
-    public PlayerInteractListener(PracticePvP plugin, QueueManager queueManager) {
-        this.plugin = plugin;
-        this.queueManager = queueManager;
+    public PlayerInteractListener(KitSelectionGUI kitSelectionGUI) {
+        this.kitSelectionGUI = kitSelectionGUI;
     }
 
     @EventHandler
@@ -28,10 +26,8 @@ public class PlayerInteractListener implements Listener {
             ItemMeta meta = item.getItemMeta();
             if (meta != null && "§8Ranked Queue §7(Right-Click)".equals(meta.getDisplayName())) {
                 event.setCancelled(true);
-                // Queueに参加するロジック
-                String kitName = "default"; // Kit名を設定するロジックを追加する
-                queueManager.addPlayerToQueue(player, kitName);
-                player.sendMessage("You have joined the queue for kit: " + kitName);
+                // Kit選択GUIを開く
+                kitSelectionGUI.openKitSelection(player);
             }
         } else if (item != null && item.getType() == Material.BOOK) {
             ItemMeta meta = item.getItemMeta();

@@ -4,17 +4,23 @@ import com.creamint.practice.commands.*;
 import com.creamint.practice.listeners.*;
 import com.creamint.practice.queue.QueueManager;
 import com.creamint.practice.match.MatchManager;
+import com.creamint.practice.kit.KitManager;
+import com.creamint.practice.gui.KitSelectionGUI;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PracticePvP extends JavaPlugin {
     private QueueManager queueManager;
     private MatchManager matchManager;
+    private KitManager kitManager;
+    private KitSelectionGUI kitSelectionGUI;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         queueManager = new QueueManager();
         matchManager = new MatchManager(this);
+        kitManager = new KitManager();
+        kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager);
 
         // コマンドの登録
         getCommand("mashiprac").setExecutor(new MashipracCommand(this));
@@ -27,7 +33,7 @@ public class PracticePvP extends JavaPlugin {
 
         // リスナーの登録
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this, queueManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(kitSelectionGUI), this);
 
         // Queueの初期化（必要に応じてKit名を設定）
         queueManager.createQueue("default");
@@ -44,5 +50,9 @@ public class PracticePvP extends JavaPlugin {
 
     public MatchManager getMatchManager() {
         return matchManager;
+    }
+
+    public KitManager getKitManager() {
+        return kitManager;
     }
 }

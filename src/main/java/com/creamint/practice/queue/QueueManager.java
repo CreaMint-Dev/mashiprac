@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 public class QueueManager {
     private final Map<String, Queue> queues;
