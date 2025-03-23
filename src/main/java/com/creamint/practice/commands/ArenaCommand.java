@@ -1,6 +1,7 @@
 package com.creamint.practice.commands;
 
 import com.creamint.practice.PracticePvP;
+import com.creamint.practice.arena.Arena;
 import com.creamint.practice.arena.ArenaManager;
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -9,6 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;  // ここを追加
 import java.util.Map;
 
 public class ArenaManager {
