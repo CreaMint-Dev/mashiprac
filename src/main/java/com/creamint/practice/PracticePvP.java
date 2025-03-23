@@ -3,15 +3,18 @@ package com.creamint.practice;
 import com.creamint.practice.commands.*;
 import com.creamint.practice.listeners.*;
 import com.creamint.practice.queue.QueueManager;
+import com.creamint.practice.match.MatchManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PracticePvP extends JavaPlugin {
     private QueueManager queueManager;
+    private MatchManager matchManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         queueManager = new QueueManager();
+        matchManager = new MatchManager(this);
 
         // コマンドの登録
         getCommand("mashiprac").setExecutor(new MashipracCommand(this));
@@ -37,5 +40,9 @@ public class PracticePvP extends JavaPlugin {
 
     public QueueManager getQueueManager() {
         return queueManager;
+    }
+
+    public MatchManager getMatchManager() {
+        return matchManager;
     }
 }
