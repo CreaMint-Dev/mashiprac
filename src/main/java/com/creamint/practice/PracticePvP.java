@@ -19,7 +19,7 @@ public class PracticePvP extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        queueManager = new QueueManager();
+        queueManager = new QueueManager();  // コンストラクタが存在することを確認
         matchManager = new MatchManager(this);
         kitManager = new KitManager(this.getDataFolder());
         kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager, this);
@@ -47,7 +47,9 @@ public class PracticePvP extends JavaPlugin {
     @Override
     public void onDisable() {
         // プラグインが無効化されたときの処理
-        arenaManager.saveArenas();
+        if (arenaManager != null) {
+            arenaManager.saveArenas();  // メソッドが存在することを確認
+        }
     }
 
     public QueueManager getQueueManager() {
