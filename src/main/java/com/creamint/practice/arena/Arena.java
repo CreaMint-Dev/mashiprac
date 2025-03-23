@@ -1,6 +1,10 @@
 package com.creamint.practice.arena;
 
 import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arena {
     private final String name;
@@ -8,9 +12,13 @@ public class Arena {
     private Location pos2;
     private Location spawn1;
     private Location spawn2;
+    private List<String> kits;
+    private boolean resetAfterMatch;
+    private ItemStack icon;
 
     public Arena(String name) {
         this.name = name;
+        this.kits = new ArrayList<>();
     }
 
     public String getName() {
@@ -47,5 +55,33 @@ public class Arena {
 
     public void setSpawn2(Location spawn2) {
         this.spawn2 = spawn2;
+    }
+
+    public List<String> getKits() {
+        return kits;
+    }
+
+    public void setKits(List<String> kits) {
+        this.kits = kits;
+    }
+
+    public void clearKits() {
+        this.kits.clear();
+    }
+
+    public boolean isResetAfterMatch() {
+        return resetAfterMatch;
+    }
+
+    public void setResetAfterMatch(boolean resetAfterMatch) {
+        this.resetAfterMatch = resetAfterMatch;
+    }
+
+    public ItemStack getIcon() {
+        return icon;
+    }
+
+    public void setIcon(ItemStack icon) {
+        this.icon = icon;
     }
 }

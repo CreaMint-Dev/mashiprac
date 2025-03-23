@@ -1,9 +1,10 @@
 package com.creamint.practice.arena;
 
 import com.creamint.practice.PracticePvP;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,11 @@ public class ArenaManager {
         arenas.put(name, new Arena(name));
     }
 
+    public void deleteArena(String name) {
+        arenas.remove(name);
+        saveArenas();
+    }
+
     public Arena getArena(String name) {
         return arenas.get(name);
     }
@@ -48,6 +54,34 @@ public class ArenaManager {
         }
     }
 
+    public void setArenaKits(String name, List<String> kits) {
+        Arena arena = getArena(name);
+        if (arena != null) {
+            arena.setKits(kits);
+        }
+    }
+
+    public void clearArenaKits(String name) {
+        Arena arena = getArena(name);
+        if (arena != null) {
+            arena.clearKits();
+        }
+    }
+
+    public void setResetAfterMatch(String name, boolean reset) {
+        Arena arena = getArena(name);
+        if (arena != null) {
+            arena.setResetAfterMatch(reset);
+        }
+    }
+
+    public void setArenaIcon(String name, ItemStack icon) {
+        Arena arena = getArena(name);
+        if (arena != null) {
+            arena.setIcon(icon);
+        }
+    }
+
     public void saveArenas() {
         for (Arena arena : arenas.values()) {
             String path = "arenas." + arena.getName();
@@ -55,6 +89,9 @@ public class ArenaManager {
             arenaConfig.set(path + ".pos2", arena.getPos2());
             arenaConfig.set(path + ".spawn1", arena.getSpawn1());
             arenaConfig.set(path + ".spawn2", arena.getSpawn2());
+            arenaConfig.set(path + ".kits", arena.getKits());
+            arenaConfig.set(path + ".resetAfterMatch", arena.isResetAfterMatch());
+            arenaConfig.set(path + ".icon", arena.getIcon());
         }
         try {
             arenaConfig.save(arenaFile);
@@ -71,6 +108,9 @@ public class ArenaManager {
                 arena.setPos2((Location) arenaConfig.get("arenas." + name + ".pos2"));
                 arena.setSpawn1((Location) arenaConfig.get("arenas." + name + ".spawn1"));
                 arena.setSpawn2((Location) arenaConfig.get("arenas." + name + ".spawn2"));
+                arena.setKits((List<String>) arenaConfig.get("arenas." + name + ".kits"));
+                arena.setResetAfterMatch(arenaConfig.getBoolean("arenas." + name + ".resetAfterMatch"));
+                arena.setIcon((ItemStack) arenaConfig.get("arenas." + name + ".icon"));
                 arenas.put(name, arena);
             }
         }
