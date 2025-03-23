@@ -6,6 +6,7 @@ import com.creamint.practice.queue.QueueManager;
 import com.creamint.practice.match.MatchManager;
 import com.creamint.practice.kit.KitManager;
 import com.creamint.practice.gui.KitSelectionGUI;
+import com.creamint.practice.arena.ArenaManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PracticePvP extends JavaPlugin {
@@ -13,6 +14,7 @@ public class PracticePvP extends JavaPlugin {
     private MatchManager matchManager;
     private KitManager kitManager;
     private KitSelectionGUI kitSelectionGUI;
+    private ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
@@ -21,6 +23,7 @@ public class PracticePvP extends JavaPlugin {
         matchManager = new MatchManager(this);
         kitManager = new KitManager();
         kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager);
+        arenaManager = new ArenaManager(this);
 
         // コマンドの登録
         getCommand("mashiprac").setExecutor(new MashipracCommand(this));
@@ -30,6 +33,7 @@ public class PracticePvP extends JavaPlugin {
         getCommand("stats").setExecutor(new StatsCommand(this));
         getCommand("l").setExecutor(new LeaveCommand(this));
         getCommand("event join").setExecutor(new EventJoinCommand(this));
+        getCommand("arena").setExecutor(new ArenaCommand(this));
 
         // リスナーの登録
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
@@ -42,6 +46,7 @@ public class PracticePvP extends JavaPlugin {
     @Override
     public void onDisable() {
         // プラグインが無効化されたときの処理
+        arenaManager.saveArenas();
     }
 
     public QueueManager getQueueManager() {
@@ -54,5 +59,9 @@ public class PracticePvP extends JavaPlugin {
 
     public KitManager getKitManager() {
         return kitManager;
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
     }
 }
