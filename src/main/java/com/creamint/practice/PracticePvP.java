@@ -21,7 +21,7 @@ public class PracticePvP extends JavaPlugin {
         saveDefaultConfig();
         queueManager = new QueueManager();
         matchManager = new MatchManager(this);
-        kitManager = new KitManager();
+        kitManager = new KitManager(this.getDataFolder());
         kitSelectionGUI = new KitSelectionGUI(kitManager, queueManager);
         arenaManager = new ArenaManager(this);
 
@@ -34,6 +34,7 @@ public class PracticePvP extends JavaPlugin {
         getCommand("l").setExecutor(new LeaveCommand(this));
         getCommand("event join").setExecutor(new EventJoinCommand(this));
         getCommand("arena").setExecutor(new ArenaCommand(this));
+        getCommand("kit").setExecutor(new KitCommand(this));
 
         // リスナーの登録
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
