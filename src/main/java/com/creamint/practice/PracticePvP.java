@@ -1,42 +1,35 @@
 package com.creamint.practice;
 
-import com.creamint.practice.commands.PartyCommand;
-import com.creamint.practice.commands.TournamentCommand;
-import com.creamint.practice.game.GameManager;
-import com.creamint.practice.party.PartyManager;
-import com.creamint.practice.player.PlayerManager;
-import com.creamint.practice.tournament.TournamentManager;
-import com.creamint.practice.listeners.PartyListener;
-import com.creamint.practice.listeners.TournamentListener;
+import com.creamint.practice.commands.*;
+import com.creamint.practice.listeners.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PracticePvP extends JavaPlugin {
-    private GameManager gameManager;
-    private PlayerManager playerManager;
-    private PartyManager partyManager;
-    private TournamentManager tournamentManager;
-
     @Override
     public void onEnable() {
-        saveDefaultConfig();
+        getLogger().info("PracticePvP has been enabled!");
 
-        this.gameManager = new GameManager(this);
-        this.playerManager = new PlayerManager(this);
-        this.partyManager = new PartyManager(this);
-        this.tournamentManager = new TournamentManager(this);
+        // Register commands
+        getCommand("mashiprac").setExecutor(new MashipracCommand(this));
+        getCommand("event").setExecutor(new EventCommand(this));
+        getCommand("duel").setExecutor(new DuelCommand(this));
+        getCommand("spec").setExecutor(new SpecCommand(this));
+        getCommand("stats").setExecutor(new StatsCommand(this));
+        getCommand("l").setExecutor(new LeaveCommand(this));
+        getCommand("event join").setExecutor(new EventJoinCommand(this));
 
-        // コマンド登録
-        getCommand("party").setExecutor(new PartyCommand(this));
-        getCommand("tournament").setExecutor(new TournamentCommand(this));
+        // Register party commands
+        getCommand("party create").setExecutor(new PartyCreateCommand(this));
+        getCommand("party invite").setExecutor(new PartyInviteCommand(this));
+        getCommand("party setlimit").setExecutor(new PartySetLimitCommand(this));
+        getCommand("party promote").setExecutor(new PartyPromoteCommand(this));
 
-        // リスナー登録
-        getServer().getPluginManager().registerEvents(new PartyListener(this), this);
-        getServer().getPluginManager().registerEvents(new TournamentListener(this), this);
+        // Register event listeners
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
     }
 
-    // Getters
-    public GameManager getGameManager() { return gameManager; }
-    public PlayerManager getPlayerManager() { return playerManager; }
-    public PartyManager getPartyManager() { return partyManager; }
-    public TournamentManager getTournamentManager() { return tournamentManager; }
+    @Override
+    public void onDisable() {
+        getLogger().info("PracticePvP has been disabled!");
+    }
 }

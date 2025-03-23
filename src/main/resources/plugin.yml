@@ -1,44 +1,27 @@
 name: PracticePvP
-version: 1.0.0
 main: com.creamint.practice.PracticePvP
-api-version: 1.19
-author: CreaMint-Dev
-
+version: 1.0
+api-version: 1.16
 commands:
-  arena:
-    description: Arena management command
-    usage: /arena <create|edit|delete|list|info> [name]
-    permission: practice.arena
-  party:
-    description: Party management command
-    usage: /party <create|invite|accept|leave|disband|settings>
-    aliases: [ p ]
-    permission: practice.party
-  tournament:
-    description: Tournament management command
-    usage: /tournament <create|join|leave|info|list>
-    aliases: [ t ]
-    permission: practice.tournament
-
-permissions:
-  practice.admin:
-    description: Gives access to all practice commands
-    default: op
-  practice.arena:
-    description: Allows arena management
-    default: op
-  practice.kit.edit:
-    description: Allows kit editing
-    default: op
-  practice.queue.ranked:
-    description: Allows joining ranked queue
-    default: true
-  practice.tournament.host:
-    description: Allows hosting tournaments
-    default: op
-  practice.party:
-    description: Allows using party commands
-    default: true
-  practice.tournament:
-    description: Allows participating in tournaments
-    default: true
+  mashiprac:
+    description: Main command for PracticePvP
+  event:
+    description: Command to select and join events
+  duel:
+    description: Command to send duel requests
+  spec:
+    description: Command to spectate a player
+  stats:
+    description: Command to view player stats
+  l:
+    description: Command to leave the current match and return to the lobby
+  event join:
+    description: Command to join an ongoing event
+  party create:
+    description: Command to create a party
+  party invite:
+    description: Command to invite a player to a party
+  party setlimit:
+    description: Command to set the party limit
+  party promote:
+    description: Command to promote a player to party leader
