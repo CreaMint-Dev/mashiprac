@@ -29,7 +29,7 @@ public class KitCommand implements CommandExecutor {
         Player player = (Player) sender;
 
         if (args.length < 2) {
-            player.sendMessage("Usage: /kit <create|delete|set|list> <kitname>");
+            player.sendMessage("Usage: /kit <create|delete|set|setinv|loadinv|seticon|settings|list> <kitname>");
             return true;
         }
 
@@ -59,6 +59,23 @@ public class KitCommand implements CommandExecutor {
                 kitManager.setKit(kitName, itemInHand);
                 player.sendMessage("Kit " + kitName + " set.");
                 break;
+            case "setinv":
+                kitManager.setKitInventory(kitName, player.getInventory());
+                player.sendMessage("Inventory for Kit " + kitName + " set.");
+                break;
+            case "loadinv":
+                kitManager.loadKitInventory(kitName, player);
+                player.sendMessage("Inventory for Kit " + kitName + " loaded.");
+                break;
+            case "seticon":
+                itemInHand = player.getInventory().getItemInHand();
+                if (itemInHand.getType() == Material.AIR) {
+                    player.sendMessage("You must hold an item to set an icon.");
+                    return true;
+                }
+                kitManager.setKit(kitName, itemInHand);
+                player.sendMessage("Icon for Kit " + kitName + " set.");
+                break;
             case "list":
                 player.sendMessage("Available kits:");
                 for (String name : kitManager.getKits().keySet()) {
@@ -66,7 +83,7 @@ public class KitCommand implements CommandExecutor {
                 }
                 break;
             default:
-                player.sendMessage("Usage: /kit <create|delete|set|list> <kitname>");
+                player.sendMessage("Usage: /kit <create|delete|set|setinv|loadinv|seticon|settings|list> <kitname>");
                 break;
         }
 

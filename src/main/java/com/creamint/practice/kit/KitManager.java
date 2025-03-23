@@ -5,6 +5,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KitManager {
-    private final Map<String, ItemStack> kits;
+    private final Map<String, Kit> kits;
     private final File kitFile;
     private final FileConfiguration kitConfig;
 
@@ -24,7 +26,8 @@ public class KitManager {
     }
 
     public void createKit(String name, ItemStack item) {
-        kits.put(name, item);
+        Kit kit = new Kit(name, item);
+        kits.put(name, kit);
         saveKits();
     }
 
@@ -34,25 +37,43 @@ public class KitManager {
     }
 
     public void setKit(String name, ItemStack item) {
-        kits.put(name, item);
-        saveKits();
+        Kit kit = kits.get(name);
+        if (kit != null) {
+            kit.setIcon(item);
+            saveKits();
+        }
     }
 
-    public ItemStack getKit(String name) {
+    public void setKitInventory(String name, PlayerInventory inventory) {
+        Kit kit = kits.get(name);
+        if (kit != null) {
+            kit.setInventory(inventory);
+            saveKits();
+        }
+    }
+
+    public void loadKitInventory(String name, Player player) {
+        Kit kit = kits.get(name);
+        if (kit != null) {
+            kit.loadInventory(player);
+        }
+    }
+
+    public Kit getKit(String name) {
         return kits.get(name);
     }
 
-    public Map<String, ItemStack> getKits() {
+    public Map<String, Kit> getKits() {
         return kits;
     }
 
     private void saveKits() {
-        for (Map.Entry<String, ItemStack> entry : kits.entrySet()) {
-            String path = "kits." + entry.getKey();
-            ItemStack item = entry.getValue();
-            kitConfig.set(path + ".type", item.getType().name());
-            kitConfig.set(path + ".amount", item.getAmount());
-            kitConfig.set(path + ".name", item.getItemMeta().getDisplayName());
+        for (Kit kit : kits.values()) {
+            String path = "kits." + kit.getName();
+            kitConfig.set(path + ".type", kit.getIcon().getType().name());
+            kitConfig.set(path + ".amount", kit.getIcon().getAmount());
+            kitConfig.set(path + ".name", kit.getIcon().getItemMeta().getDisplayName());
+            kitConfig.set(path + ".inventory", kit.getInventory());
         }
         try {
             kitConfig.save(kitFile);
@@ -73,7 +94,9 @@ public class KitManager {
                 meta.setDisplayName(displayName);
                 item.setItemMeta(meta);
 
-                kits.put(name, item);
+                Kit kit = new Kit(name, item);
+                kit.setInventory((PlayerInventory) kitConfig.get("kits." + name + ".inventory"));
+                kits.put(name, kit);
             }
         }
     }
