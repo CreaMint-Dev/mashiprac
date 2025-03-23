@@ -21,6 +21,13 @@ public class KitManager {
     public KitManager(File dataFolder) {
         this.kits = new HashMap<>();
         this.kitFile = new File(dataFolder, "kits.yml");
+        if (!kitFile.exists()) {
+            try {
+                kitFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         this.kitConfig = YamlConfiguration.loadConfiguration(kitFile);
         loadKits();
     }

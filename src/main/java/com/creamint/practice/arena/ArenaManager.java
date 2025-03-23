@@ -22,6 +22,9 @@ public class ArenaManager {
         this.plugin = plugin;
         this.arenas = new HashMap<>();
         this.arenaFile = new File(plugin.getDataFolder(), "arenas.yml");
+        if (!arenaFile.exists()) {
+            plugin.saveResource("arenas.yml", false);
+        }
         this.arenaConfig = YamlConfiguration.loadConfiguration(arenaFile);
         loadArenas();
     }
