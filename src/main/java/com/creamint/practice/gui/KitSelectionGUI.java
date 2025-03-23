@@ -4,7 +4,6 @@ import com.creamint.practice.PracticePvP;
 import com.creamint.practice.kit.KitManager;
 import com.creamint.practice.queue.QueueManager;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,6 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Map; // 追加
 
 public class KitSelectionGUI implements Listener {
     private final KitManager kitManager;
@@ -28,7 +29,7 @@ public class KitSelectionGUI implements Listener {
     public void openKitSelection(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 27, "Select Your Kit");
         int slot = 0;
-        for (Map.Entry<String, ItemStack> entry : kitManager.getKits().entrySet()) {
+        for (Map.Entry<String, ItemStack> entry : kitManager.getKits().entrySet()) { // 修正点
             ItemStack item = entry.getValue().clone();
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(entry.getKey());
