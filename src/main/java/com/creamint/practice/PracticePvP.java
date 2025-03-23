@@ -26,15 +26,15 @@ public class PracticePvP extends JavaPlugin {
         arenaManager = new ArenaManager(this);
 
         // コマンドの登録
-        getCommand("mashiprac").setExecutor(new MashipracCommand(this));
-        getCommand("event").setExecutor(new EventCommand(this));
-        getCommand("duel").setExecutor(new DuelCommand(this));
-        getCommand("spec").setExecutor(new SpecCommand(this));
-        getCommand("stats").setExecutor(new StatsCommand(this));
-        getCommand("l").setExecutor(new LeaveCommand(this));
-        getCommand("event join").setExecutor(new EventJoinCommand(this));
-        getCommand("arena").setExecutor(new ArenaCommand(this));
-        getCommand("kit").setExecutor(new KitCommand(this));
+        if (getCommand("mashiprac") != null) getCommand("mashiprac").setExecutor(new MashipracCommand(this));
+        if (getCommand("event") != null) getCommand("event").setExecutor(new EventCommand(this));
+        if (getCommand("duel") != null) getCommand("duel").setExecutor(new DuelCommand(this));
+        if (getCommand("spec") != null) getCommand("spec").setExecutor(new SpecCommand(this));
+        if (getCommand("stats") != null) getCommand("stats").setExecutor(new StatsCommand(this));
+        if (getCommand("l") != null) getCommand("l").setExecutor(new LeaveCommand(this));
+        if (getCommand("event join") != null) getCommand("event join").setExecutor(new EventJoinCommand(this));
+        if (getCommand("arena") != null) getCommand("arena").setExecutor(new ArenaCommand(this));
+        if (getCommand("kit") != null) getCommand("kit").setExecutor(new KitCommand(this));
 
         // リスナーの登録
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);

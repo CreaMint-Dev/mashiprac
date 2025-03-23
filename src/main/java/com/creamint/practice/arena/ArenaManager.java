@@ -1,7 +1,9 @@
 package com.creamint.practice.arena;
 
 import com.creamint.practice.PracticePvP;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -93,10 +95,10 @@ public class ArenaManager {
     public void saveArenas() {
         for (Arena arena : arenas.values()) {
             String path = "arenas." + arena.getName();
-            arenaConfig.set(path + ".pos1", arena.getPos1());
-            arenaConfig.set(path + ".pos2", arena.getPos2());
-            arenaConfig.set(path + ".spawn1", arena.getSpawn1());
-            arenaConfig.set(path + ".spawn2", arena.getSpawn2());
+            arenaConfig.set(path + ".pos1", serializeLocation(arena.getPos1()));
+            arenaConfig.set(path + ".pos2", serializeLocation(arena.getPos2()));
+            arenaConfig.set(path + ".spawn1", serializeLocation(arena.getSpawn1()));
+            arenaConfig.set(path + ".spawn2", serializeLocation(arena.getSpawn2()));
             arenaConfig.set(path + ".kits", arena.getKits());
             arenaConfig.set(path + ".resetAfterMatch", arena.isResetAfterMatch());
             arenaConfig.set(path + ".icon", arena.getIcon());
@@ -112,15 +114,36 @@ public class ArenaManager {
         if (arenaConfig.contains("arenas")) {
             for (String name : arenaConfig.getConfigurationSection("arenas").getKeys(false)) {
                 Arena arena = new Arena(name);
-                arena.setPos1((Location) arenaConfig.get("arenas." + name + ".pos1"));
-                arena.setPos2((Location) arenaConfig.get("arenas." + name + ".pos2"));
-                arena.setSpawn1((Location) arenaConfig.get("arenas." + name + ".spawn1"));
-                arena.setSpawn2((Location) arenaConfig.get("arenas." + name + ".spawn2"));
-                arena.setKits((List<String>) arenaConfig.get("arenas." + name + ".kits"));
+                arena.setPos1(deserializeLocation(arenaConfig.getConfigurationSection("arenas." + name + ".pos1")));
+                arena.setPos2(deserializeLocation(arenaConfig.getConfigurationSection("arenas." + name + ".pos2")));
+                arena.setSpawn1(deserializeLocation(arenaConfig.getConfigurationSection("arenas." + name + ".spawn1")));
+                arena.setSpawn2(deserializeLocation(arenaConfig.getConfigurationSection("arenas." + name + ".spawn2")));
+                arena.setKits(arenaConfig.getStringList("arenas." + name + ".kits"));
                 arena.setResetAfterMatch(arenaConfig.getBoolean("arenas." + name + ".resetAfterMatch"));
-                arena.setIcon((ItemStack) arenaConfig.get("arenas." + name + ".icon"));
+                arena.setIcon(arenaConfig.getItemStack("arenas." + name + ".icon"));
                 arenas.put(name, arena);
             }
         }
+    }
+
+    private Map<String, Object> serializeLocation(Location location) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("world", location.getWorld().getName());
+        map.put("x", location.getX());
+        map.put("y", location.getY());
+        map.put("z", location.getZ());
+        map.put("yaw", location.getYaw());
+        map.put("pitch", location.getPitch());
+        return map;
+    }
+
+    private Location deserializeLocation(ConfigurationSection config) {
+        String world = config.getString("world");
+        double x = config.getDouble("x");
+        double y = config.getDouble("y");
+        double z = config.getDouble("z");
+        float yaw = (float) config.getDouble("yaw");
+        float pitch = (float) config.getDouble("pitch");
+        return new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch);
     }
 }
