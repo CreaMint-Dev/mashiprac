@@ -2,6 +2,7 @@ package com.creamint.practice.match;
 
 import com.creamint.practice.PracticePvP;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -41,6 +42,17 @@ public class MatchManager {
         // マッチ終了のロジック
         match.getPlayer1().sendMessage("Match ended.");
         match.getPlayer2().sendMessage("Match ended.");
+
+        // 4秒後にロビースポーンにテレポートし、スポーンアイテムを持たせるロジック
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            Location lobbySpawn = plugin.getServer().getWorld("world").getSpawnLocation(); // ロビーのスポーン地点を取得
+            match.getPlayer1().teleport(lobbySpawn);
+            match.getPlayer2().teleport(lobbySpawn);
+
+            // スポーンアイテムを持たせる
+            giveSpawnItems(match.getPlayer1());
+            giveSpawnItems(match.getPlayer2());
+        }, 80L); // 4秒後に実行（20L = 1秒）
     }
 
     public Match getMatch(Player player) {
@@ -63,5 +75,10 @@ public class MatchManager {
             match.getPlayer2().sendMessage("Fight!");
             // プレイヤーを攻撃可能にするロジック
         }, 100L);
+    }
+
+    private void giveSpawnItems(Player player) {
+        // スポーンアイテムを持たせるロジックを実装
+        // 例：player.getInventory().addItem(new ItemStack(Material.COMPASS));
     }
 }
