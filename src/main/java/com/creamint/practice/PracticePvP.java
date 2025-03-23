@@ -23,6 +23,8 @@ public class PracticePvP extends JavaPlugin {
         getCommand("party invite").setExecutor(new PartyInviteCommand(this));
         getCommand("party setlimit").setExecutor(new PartySetLimitCommand(this));
         getCommand("party promote").setExecutor(new PartyPromoteCommand(this));
+        getCommand("party leave").setExecutor(new PartyLeaveCommand(this));
+        getCommand("party disband").setExecutor(new PartyDisbandCommand(this));
 
         // Register event listeners
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);

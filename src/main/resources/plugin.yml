@@ -25,3 +25,7 @@ commands:
     description: Command to set the party limit
   party promote:
     description: Command to promote a player to party leader
+  party leave:
+    description: Command to leave the current party
+  party disband:
+    description: Command to disband the current party
