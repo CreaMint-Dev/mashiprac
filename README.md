@@ -1,8 +1,8 @@
 
-#MashiPractice
+# MashiPractice
 動作条件: paper spigot 1.8.8
-Java version: 17
 概要: 1vs1やPartyを組んでPvPをするプラグイン
+Java version: 17
 機能:
 Ranked Queue (Rankedのみ(duelやpartyやtournamentは除く)
 Party Fight (パーティー内で対戦する)
@@ -14,17 +14,22 @@ Kit Editor (対戦時のインベントリの配置を編集するもの)
 
 コマンド:
 "/mashiprac setspawn" コマンドを打った位置にロビースポーン位置を設定
+"/event" 開催するイベント選択のGUIが開く（実行するには"mashiprac.event"というpermissionが必要）
+具体的な動作：コマンドを打つと開催するイベントを選択するGUIが表示される。イベントをクリックすると、イベントが開かれ、チャットでBroadcastされ、サーバーに参加している全プレイヤーにイベントのお知らせをする。なおそのチャットをクリックするとイベントに参加できるようにする。（対戦中やパーティーに参加している場合は参加できない）イベントはとりあえずTournament、TNTTagの２つを実装する、なおイベントは２つ同時に開く事ができない。
+"/mashiprac arenasworld" Mapsワールドのx:0 y100 z:0にテレポートするコマンド mashiprac.adminというpermissionが必要
+"/mashiprac spawn" ロビースポーンにテレポートできる。エラーハンドリングを忘れずに。mashiprac.adminというpermissionが必要
+
+プレイヤー用コマンド:
 "/duel <player>" 指定のプレイヤーに1vs1申込ができる。
 具体的な動作：コマンドを打つとるKitリストのGUIを開く。左クリックするとそのKitで送る。右クリックをするとさらにマップ選択するGUIに飛び、いずれかをクリックするとその選択したKitとマップで対戦申込を送る。
 "/spec <player>" "/spectate <player>" 指定のプレイヤーが対戦中の場合観戦できる。
 具体的な動作：プレイヤーにテレポートする。対戦中のプレイヤーからはパケットを使って感染中のプレイヤーを見れないようにする
-"/event" 開催するイベント選択のGUIが開く（実行するには"mashiprac.event"というpermissionが必要）
-具体的な動作：コマンドを打つと開催するイベントを選択するGUIが表示される。イベントをクリックすると、イベントが開かれ、チャットでBroadcastされ、サーバーに参加している全プレイヤーにイベントのお知らせをする。なおそのチャットをクリックするとイベントに参加できるようにする。（対戦中やパーティーに参加している場合は参加できない）イベントはとりあえずTournament、TNTTagの２つを実装する
 "/stats <player>" 指定のプレイヤーのStatsを表示するGUIを出す。<player>に何も入力されていない場合は自分のstatsを表示する。そこではマッチに勝利した数、敗北した数、キル数を表示する
-"/party" "/p" パーティーコマンドのHelpをチャットに表示
-"/mashiprac arenasworld" Mapsワールドのx:0 y100 z:0にテレポートするコマンド mashiprac.adminというpermissionが必要
-"/mashiprac spawn" ロビースポーンにテレポートできる。エラーハンドリングを忘れずに。
+"/l" 対戦中に使えるコマンド、ロビースポーンに戻ることができる。このとき対戦から離脱すると死亡判定になる。
+"/event join" 開催中のイベントに参加するコマンド
 
+パーティーコマンド:
+"/party" "/p" パーティーコマンドのHelpをチャットに表示
 以下のコマンド"/party" "/team"の場合でも同じ動作をする
 "/p create" パーティーを作成するコマンド
 "/p invite <player>" パーティーにプレイヤーを招待するコマンド
