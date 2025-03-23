@@ -2,14 +2,18 @@ package com.creamint.practice;
 
 import com.creamint.practice.commands.*;
 import com.creamint.practice.listeners.*;
+import com.creamint.practice.queue.QueueManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PracticePvP extends JavaPlugin {
+    private QueueManager queueManager;
+
     @Override
     public void onEnable() {
-        getLogger().info("PracticePvP has been enabled!");
+        saveDefaultConfig();
+        queueManager = new QueueManager();
 
-        // Register commands
+        // コマンドの登録
         getCommand("mashiprac").setExecutor(new MashipracCommand(this));
         getCommand("event").setExecutor(new EventCommand(this));
         getCommand("duel").setExecutor(new DuelCommand(this));
@@ -18,20 +22,20 @@ public class PracticePvP extends JavaPlugin {
         getCommand("l").setExecutor(new LeaveCommand(this));
         getCommand("event join").setExecutor(new EventJoinCommand(this));
 
-        // Register party commands
-        getCommand("party create").setExecutor(new PartyCreateCommand(this));
-        getCommand("party invite").setExecutor(new PartyInviteCommand(this));
-        getCommand("party setlimit").setExecutor(new PartySetLimitCommand(this));
-        getCommand("party promote").setExecutor(new PartyPromoteCommand(this));
-        getCommand("party leave").setExecutor(new PartyLeaveCommand(this));
-        getCommand("party disband").setExecutor(new PartyDisbandCommand(this));
-
-        // Register event listeners
+        // リスナーの登録
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(this, queueManager), this);
+
+        // Queueの初期化（必要に応じてKit名を設定）
+        queueManager.createQueue("default");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("PracticePvP has been disabled!");
+        // プラグインが無効化されたときの処理
+    }
+
+    public QueueManager getQueueManager() {
+        return queueManager;
     }
 }
