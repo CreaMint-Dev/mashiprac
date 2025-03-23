@@ -1,0 +1,44 @@
+name: PracticePvP
+version: 1.0.0
+main: com.creamint.practice.PracticePvP
+api-version: 1.19
+author: CreaMint-Dev
+
+commands:
+  arena:
+    description: Arena management command
+    usage: /arena <create|edit|delete|list|info> [name]
+    permission: practice.arena
+  party:
+    description: Party management command
+    usage: /party <create|invite|accept|leave|disband|settings>
+    aliases: [ p ]
+    permission: practice.party
+  tournament:
+    description: Tournament management command
+    usage: /tournament <create|join|leave|info|list>
+    aliases: [ t ]
+    permission: practice.tournament
+
+permissions:
+  practice.admin:
+    description: Gives access to all practice commands
+    default: op
+  practice.arena:
+    description: Allows arena management
+    default: op
+  practice.kit.edit:
+    description: Allows kit editing
+    default: op
+  practice.queue.ranked:
+    description: Allows joining ranked queue
+    default: true
+  practice.tournament.host:
+    description: Allows hosting tournaments
+    default: op
+  practice.party:
+    description: Allows using party commands
+    default: true
+  practice.tournament:
+    description: Allows participating in tournaments
+    default: true

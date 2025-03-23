@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="mdddPrac:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/mdddPrac_jar</output-path>
+    <root id="archive" name="mdddPrac.jar">
+      <element id="module-output" name="mdddPrac" />
+      <element id="extracted-dir" path="$USER_HOME$/OneDrive/Desktop/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

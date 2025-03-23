@@ -1,0 +1,41 @@
+# PracticePvP Configuration
+# Last updated: 2025-03-23
+
+# データベース設定
+database:
+  type: SQLite # MySQL or SQLite
+  host: localhost
+  port: 3306
+  database: practice
+  username: root
+  password: password
+  pool-size: 10
+  timeout: 30
+
+# パフォーマンス設定
+performance:
+  max-concurrent-matches: 50
+  queue-timeout-seconds: 60
+  cache-timeout-minutes: 30
+  async-save-interval: 300
+  cleanup-interval: 600
+
+# ゲームプレイ設定
+gameplay:
+  queue:
+    ranked-required-wins: 10
+    placement-matches: 5
+    initial-rating: 1000
+  tournament:
+    min-players: 4
+    max-players: 64
+    auto-start-timer: 60
+    round-delay: 30
+
+# メッセージ設定
+messages:
+  prefix: "&8[&b&lPractice&8]"
+  match:
+    start: "&aMatch starting in {time}..."
+    end: "&b{winner} &7has won the match!"
+    cancelled: "&cMatch cancelled: {reason}"
