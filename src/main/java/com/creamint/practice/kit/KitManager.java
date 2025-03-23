@@ -74,7 +74,7 @@ public class KitManager {
         return kits;
     }
 
-    private void saveKits() {
+    public void saveKits() {
         for (Kit kit : kits.values()) {
             String path = "kits." + kit.getName();
             kitConfig.set(path + ".type", kit.getIcon().getType().name());
